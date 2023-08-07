@@ -1,0 +1,5 @@
+# JS and TS
+**/node_modules
+
+# Rust
+**/target
