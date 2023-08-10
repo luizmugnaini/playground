@@ -1,5 +1,6 @@
 # JS and TS
 **/node_modules
+**/dist
 
 # Rust
 **/target
