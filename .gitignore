@@ -1,6 +1,12 @@
+**/ignore
+
 # JS and TS
 **/node_modules
 **/dist
 
 # Rust
 **/target
+
+# C++
+**/build
+**/.cache
