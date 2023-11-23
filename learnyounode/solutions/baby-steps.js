@@ -1,4 +1,4 @@
-function sumDeez(nums) {
+function sumNums(nums) {
     if (nums) {
         return nums.reduce((acc, n) => acc + n, 0);
     } else {
@@ -8,7 +8,7 @@ function sumDeez(nums) {
 
 function main() {
     const args = process.argv.slice(2).map((arg) => Number(arg));
-    console.log(sumDeez(args));
+    console.log(sumNums(args));
 }
 
 main();
