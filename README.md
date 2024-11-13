@@ -3,11 +3,11 @@
 This repository contains experiments, exercises, and mini-projects in various languages. The *only*
 goal is learning.
 
-- `aoc`: Solutions to [Advent of Code](https://adventofcode.com/) in various languages.
-- `euler`: Solutions to the [Project Euler](https://projecteuler.net/) problems.
+- `advent-of-code`: Solutions to [Advent of Code](https://adventofcode.com/) in various languages.
+- `project-euler`: Solutions to the [Project Euler](https://projecteuler.net/) problems.
 - `scripts`: Standalone scripts.
 - `game-of-life`: An implementation of the Conway's Game of Life.
-- `learnyounode`: Solutions to the [Learn You Node workshop](https://github.com/workshopper/learnyounode) lessons.
+- `learn-you-node`: Solutions to the [Learn You Node workshop](https://github.com/workshopper/learnyounode) lessons.
 
 # License
 
