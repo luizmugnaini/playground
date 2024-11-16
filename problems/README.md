@@ -8,7 +8,7 @@ good and having great performance, see the [Presheaf library](https://github.com
 
 Why do I do this? Well because I need to pay the bills and eat --- therefore the solutions are
 written *for* the interviewers in mind, which will commonly want to know if I'm aware of the new
-shiny Modern™ C++ bullshit. If you want to know my real opinion on "modern" C++, read [this](https://github.com/luizmugnaini/presheaf/CODING_STYLE.md).
+shiny Modern™ C++ bullshit. If you want to know my real opinion on "modern" C++, read [this](https://github.com/luizmugnaini/presheaf/blob/main/STYLE_GUIDE.md).
 
 The C-based solutions will most certainly be more in line with my like of thinking and the way I
 naturally program. If you're not brainwashed by corporate programming, please refer to those for the
