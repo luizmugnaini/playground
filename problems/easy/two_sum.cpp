@@ -1,20 +1,20 @@
+// ------------------------------------------------------------------------------------------------
 // Title: Two sum.
 // Category: Easy.
-//
+// Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
+// ------------------------------------------------------------------------------------------------
 // Description:
 //
 // Given an array of integers nums and an integer target, return the indices i and j such that
 // nums[i] + nums[j] == target and i != j.
 //
 // Return the answer with the smaller index first.
-//
-// Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
+// ------------------------------------------------------------------------------------------------
 
 #include <array>
-#include <cassert>
-#include <cstdio>
 #include <utility>
 #include <vector>
+#include "../common.hpp"
 
 std::pair<std::array<size_t, 2>, bool> two_sum(
     std::vector<int> const& values,
@@ -37,20 +37,23 @@ finish_two_sum:
     return std::make_pair(index_pair, has_two_sum);
 }
 
-int main(int argc, char** argv) {
+int main() {
     std::vector<int> values = {3, 4, 5, 6};
 
     auto [indices_7_sum, has_7_sum] = two_sum(values, 7);
     assert(has_7_sum);
-    assert((indices_7_sum[0] == 0) && (indices_7_sum[1] == 1));
+    assert_eq(indices_7_sum[0], 0);
+    assert_eq(indices_7_sum[1], 1);
 
     auto [indices_9_sum, has_9_sum] = two_sum(values, 9);
     assert(has_9_sum);
-    assert((indices_9_sum[0] == 0) && (indices_9_sum[1] == 3));
+    assert_eq(indices_9_sum[0], 0);
+    assert_eq(indices_9_sum[1], 3);
 
     auto [indices_11_sum, has_11_sum] = two_sum(values, 11);
     assert(has_11_sum);
-    assert((indices_11_sum[0] == 2) && (indices_11_sum[1] == 3));
+    assert_eq(indices_11_sum[0], 2);
+    assert_eq(indices_11_sum[1], 3);
 
     auto [indices_44_sum, has_44_sum] = two_sum(values, 44);
     assert(!has_44_sum);
@@ -58,6 +61,6 @@ int main(int argc, char** argv) {
     auto [indices_5_sum, has_5_sum] = two_sum(values, 5);
     assert(!has_5_sum);
 
-    std::printf("%s: Success!", argv[0]);
+    report_success();
     return 0;
 }

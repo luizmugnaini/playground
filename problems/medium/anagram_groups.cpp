@@ -1,6 +1,8 @@
+// ------------------------------------------------------------------------------------------------
 // Title: Anagram groups.
 // Category: Medium.
-//
+// Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
+// ------------------------------------------------------------------------------------------------
 // Description:
 //
 // Given an array of strings group all anagrams together into sublists. You may return the output in
@@ -8,15 +10,13 @@
 //
 // An anagram is a string that contains the exact same characters as another string, but the order
 // of the characters can be different.
-//
-// Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
+// ------------------------------------------------------------------------------------------------
 
 #include <array>
-#include <cassert>
-#include <cstdint>
 #include <string>
 #include <string_view>
 #include <vector>
+#include "../common.hpp"
 
 using AnagramGroups = std::vector<std::vector<std::string>>;
 
@@ -103,7 +103,7 @@ bool orderless_match(AnagramGroups const& lhs, AnagramGroups const& rhs) noexcep
         size_t      group_size = lhs_group.size();
 
         for (size_t rhs_idx = 0; rhs_idx < group_count; ++rhs_idx) {
-            auto const& rhs_group = lhs[lhs_idx];
+            auto const& rhs_group = rhs[rhs_idx];
 
             if (rhs_group.size() != group_size) {
                 continue;
@@ -134,7 +134,7 @@ bool orderless_match(AnagramGroups const& lhs, AnagramGroups const& rhs) noexcep
     return does_match;
 }
 
-int main(int, char** argv) {
+int main() {
     // @NOTE: Using vector is obviously not needed but these exercises are completely stupid anyway...
 
     // Test 1.
@@ -164,6 +164,6 @@ int main(int, char** argv) {
         assert(orderless_match(expect, groups));
     }
 
-    std::printf("%s: Success", argv[0]);
+    report_success();
     return 0;
 }

@@ -1,7 +1,8 @@
+// ------------------------------------------------------------------------------------------------
 // Title: Is anagram.
 // Category: Easy.
-//
-//
+// Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
+// ------------------------------------------------------------------------------------------------
 // Description:
 //
 // Given two strings s and t, return true if the two strings are anagrams of each other, otherwise
@@ -9,13 +10,12 @@
 //
 // An anagram is a string that contains the exact same characters as another string, but the order
 // of the characters can be different.
-//
-// Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
+// ------------------------------------------------------------------------------------------------
 
 #include <array>
-#include <cassert>
 #include <limits>
 #include <string_view>
+#include "../common.hpp"
 
 bool is_anagram(std::string_view lhs, std::string_view rhs) noexcept {
     constexpr size_t MAX_UNIQUE_CHARS = std::numeric_limits<char>::max();
@@ -44,7 +44,7 @@ bool is_anagram(std::string_view lhs, std::string_view rhs) noexcept {
     return are_anagrams;
 }
 
-int main(int argc, char** argv) {
+int main() {
     assert(is_anagram("racecar", "carrace"));
     assert(is_anagram("uliz", "luiz"));
 
@@ -56,6 +56,6 @@ int main(int argc, char** argv) {
 
     assert(!is_anagram("jar", "jam"));
 
-    std::printf("%s: Success!", argv[0]);
+    report_success();
     return 0;
 }
