@@ -16,7 +16,7 @@
 
 template <typename T>
     requires std::is_trivially_copyable_v<T>
-bool has_duplicate(std::vector<T>& numbers) noexcept {
+static bool has_duplicate(std::vector<T>& numbers) noexcept {
     std::set<T> unique_values;
 
     for (T const& val : numbers) {

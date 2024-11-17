@@ -15,7 +15,7 @@
 #include "../common.hpp"
 
 template <typename T>
-std::vector<T> product_except_self(std::vector<T> const& values) {
+static std::vector<T> product_except_self(std::vector<T> const& values) {
     size_t value_count = values.size();
 
     std::vector<T> results;
@@ -39,7 +39,7 @@ std::vector<T> product_except_self(std::vector<T> const& values) {
 }
 
 template <typename T>
-bool ordered_match(std::vector<T> const& lhs, std::vector<T> const& rhs) {
+static bool ordered_match(std::vector<T> const& lhs, std::vector<T> const& rhs) {
     size_t count = lhs.size();
     if (rhs.size() != count) {
         return false;

@@ -16,7 +16,7 @@
 #include <vector>
 #include "../common.hpp"
 
-std::pair<std::array<size_t, 2>, bool> two_sum(
+static std::pair<std::array<size_t, 2>, bool> two_sum(
     std::vector<int> const& values,
     int                     target_sum) noexcept {
     std::array<size_t, 2> index_pair;

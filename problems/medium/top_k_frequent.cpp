@@ -20,7 +20,7 @@
 #include "../common.hpp"
 
 template <typename T>
-std::vector<T> top_frequent(std::vector<T> const& values, size_t frequent_values_count) {
+static std::vector<T> top_frequent(std::vector<T> const& values, size_t frequent_values_count) {
     auto value_count = values.size();
 
     // Record the element frequencies.
@@ -49,7 +49,7 @@ std::vector<T> top_frequent(std::vector<T> const& values, size_t frequent_values
 }
 
 template <typename T>
-bool orderless_match(std::vector<T> lhs, std::vector<T> rhs) {
+static bool orderless_match(std::vector<T> lhs, std::vector<T> rhs) {
     bool matches = true;
     for (T const& l : lhs) {
         bool found = false;
@@ -69,7 +69,7 @@ bool orderless_match(std::vector<T> lhs, std::vector<T> rhs) {
 }
 
 template <typename T>
-void print_elems(std::vector<T> const& values) {
+static void print_elems(std::vector<T> const& values) {
     std::cout << "[ ";
     for (T const& v : values) {
         std::cout << v << ", ";

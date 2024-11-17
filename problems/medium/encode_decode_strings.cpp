@@ -13,9 +13,9 @@
 #include <vector>
 #include "../common.hpp"
 
-constexpr char SEPARATOR = '#';
+static constexpr char SEPARATOR = '#';
 
-size_t count_digits(size_t value) {
+static size_t count_digits(size_t value) {
     size_t count = 0;
     while (value != 0) {
         value /= 10;
@@ -24,7 +24,7 @@ size_t count_digits(size_t value) {
     return count;
 }
 
-std::string encode(std::vector<std::string> const& strs) {
+static std::string encode(std::vector<std::string> const& strs) {
     size_t encoding_length = 0;
     for (auto const& str : strs) {
         size_t length = str.length();
@@ -41,7 +41,7 @@ std::string encode(std::vector<std::string> const& strs) {
     return encoding;
 }
 
-std::vector<std::string> decode(std::string const& encoded) {
+static std::vector<std::string> decode(std::string const& encoded) {
     std::vector<std::string> decoded;
 
     size_t encoding_length = encoded.length();
@@ -63,7 +63,7 @@ std::vector<std::string> decode(std::string const& encoded) {
     return decoded;
 }
 
-bool ordered_match(std::vector<std::string> const& lhs, std::vector<std::string> const& rhs) {
+static bool ordered_match(std::vector<std::string> const& lhs, std::vector<std::string> const& rhs) {
     size_t count = lhs.size();
     if (rhs.size() != count) {
         return false;
@@ -77,7 +77,7 @@ bool ordered_match(std::vector<std::string> const& lhs, std::vector<std::string>
     return matches;
 }
 
-void dbg(std::string const& enc, std::vector<std::string> const& dec) {
+static void dbg(std::string const& enc, std::vector<std::string> const& dec) {
     std::cout << "encoded: " << enc << "\n";
     std::cout << "decoded: [";
     for (auto const& s : dec) {

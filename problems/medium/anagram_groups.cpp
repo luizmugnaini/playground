@@ -20,7 +20,7 @@
 
 using AnagramGroups = std::vector<std::vector<std::string>>;
 
-bool is_anagram(std::string_view lhs, std::string_view rhs) noexcept {
+static bool is_anagram(std::string_view lhs, std::string_view rhs) noexcept {
     constexpr size_t MAX_UNIQUE_CHARS = std::numeric_limits<char>::max();
 
     std::array<size_t, MAX_UNIQUE_CHARS> lhs_count = {};
@@ -47,7 +47,7 @@ bool is_anagram(std::string_view lhs, std::string_view rhs) noexcept {
     return are_anagrams;
 }
 
-AnagramGroups anagram_groups(std::vector<std::string> const& strs) {
+static AnagramGroups anagram_groups(std::vector<std::string> const& strs) {
     size_t str_count = strs.size();
 
     std::vector<uint8_t> already_grouped;
@@ -89,7 +89,7 @@ AnagramGroups anagram_groups(std::vector<std::string> const& strs) {
 }
 
 // @NOTE: Obviously could be optimized, but is only used for testing.
-bool orderless_match(AnagramGroups const& lhs, AnagramGroups const& rhs) noexcept {
+static bool orderless_match(AnagramGroups const& lhs, AnagramGroups const& rhs) noexcept {
     size_t group_count = lhs.size();
     if (group_count != rhs.size()) {
         return false;
