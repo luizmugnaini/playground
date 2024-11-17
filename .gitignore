@@ -10,3 +10,7 @@
 # C++
 **/build
 **/.cache
+**/CMakeSettings.json
+**/CppProperties.json
+**/.vs
+**/out

@@ -77,15 +77,6 @@ static bool ordered_match(std::vector<std::string> const& lhs, std::vector<std::
     return matches;
 }
 
-static void dbg(std::string const& enc, std::vector<std::string> const& dec) {
-    std::cout << "encoded: " << enc << "\n";
-    std::cout << "decoded: [";
-    for (auto const& s : dec) {
-        std::cout << s << ", ";
-    }
-    std::cout << "]\n";
-}
-
 int main() {
     // Test 1.
     {
