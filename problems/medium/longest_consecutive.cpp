@@ -21,7 +21,7 @@
 
 template <typename T>
     requires std::is_integral_v<T>
-size_t longest_consecutive(std::vector<T>& values) {
+static size_t longest_consecutive(std::vector<T>& values) {
     size_t count = values.size();
     if (count == 0) {
         return 0;

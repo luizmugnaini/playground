@@ -20,6 +20,7 @@ list(
     "duplicate_integer"
     "is_anagram"
     "two_sum"
+    "unique_elements"
 )
 
 list(
