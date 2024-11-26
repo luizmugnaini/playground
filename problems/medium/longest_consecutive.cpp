@@ -16,12 +16,13 @@
 
 #include <algorithm>
 #include <type_traits>
+#include <unordered_set>
 #include <vector>
 #include "../common.hpp"
 
 template <typename T>
     requires std::is_integral_v<T>
-static size_t longest_consecutive(std::vector<T>& values) {
+static size_t longest_consecutive_using_sort(std::vector<T>& values) {
     size_t count = values.size();
     if (count == 0) {
         return 0;
@@ -39,7 +40,7 @@ static size_t longest_consecutive(std::vector<T>& values) {
 
         int64_t next_search = -1;
         for (size_t idx = search_start + 1; idx < count; ++idx) {
-            T value = values[idx];
+            auto value = values[idx];
             if (value == sequence.back() + 1) {
                 sequence.push_back(value);
             } else if (next_search < 0) {
@@ -55,23 +56,57 @@ static size_t longest_consecutive(std::vector<T>& values) {
     return max_sequence_count;
 }
 
+template <typename T>
+    requires std::is_integral_v<T>
+static size_t longest_consecutive_using_unordered_set(std::vector<T> const& values) {
+    if (values.empty()) {
+        return 0;
+    }
+
+    std::unordered_set<T> value_set{values.begin(), values.end()};
+
+    size_t max_sequence_count = 1;
+
+    auto value_set_end = value_set.end();
+    for (auto value : values) {
+        // If a value has no predecessor in the vector, it must be the start of a sequence.
+        bool has_predecessor = (value_set.find(value - 1) != value_set_end);
+        if (!has_predecessor) {
+            size_t current_sequence_count = 1;
+
+            auto successor_value = value + 1;
+            while (value_set.find(successor_value) != value_set_end) {
+                ++successor_value;
+                ++current_sequence_count;
+            }
+
+            max_sequence_count = std::max(max_sequence_count, current_sequence_count);
+        }
+    }
+
+    return max_sequence_count;
+}
+
 int main() {
     // Test 1.
     {
         std::vector values = {2, 20, 4, 10, 3, 4, 5};
-        assert_eq(longest_consecutive(values), 4);
+        assert_eq(longest_consecutive_using_sort(values), 4);
+        assert_eq(longest_consecutive_using_unordered_set(values), 4);
     }
 
     // Test 2.
     {
         std::vector values = {0, 3, 2, 5, 4, 6, 1, 1};
-        assert_eq(longest_consecutive(values), 7);
+        assert_eq(longest_consecutive_using_sort(values), 7);
+        assert_eq(longest_consecutive_using_unordered_set(values), 7);
     }
 
     // Test 3.
     {
         std::vector values = {1, 5, 6, 2, -7, -8, 10, -9};
-        assert_eq(longest_consecutive(values), 3);
+        assert_eq(longest_consecutive_using_sort(values), 3);
+        assert_eq(longest_consecutive_using_unordered_set(values), 3);
     }
 
     report_success();
