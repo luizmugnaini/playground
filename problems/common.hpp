@@ -2,6 +2,7 @@
 // Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
 
 #include <cassert>
+#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <iostream>

@@ -29,6 +29,7 @@ list(
     "product_except_self"
     "top_k_frequent"
     "valid_sudoku"
+    "longest_consecutive"
 )
 
 list(
