@@ -21,47 +21,50 @@ template <typename T>
 using Triple = std::array<T, 3>;
 
 template <typename T>
-std::vector<Triple<T>> three_sum(std::vector<T> const& values, T target) {
+std::vector<Triple<T>> three_sum(std::vector<T>& values, T target) {
     size_t count = values.size();
     if (count == 0) {
         return {};
     }
 
+    std::sort(values.begin(), values.end());
+
     std::vector<Triple<T>> triplets;
     triplets.reserve(count / 3);  // Tries to avoid more allocations...
 
-    T max_value = *std::max_element(values.begin(), values.end());
-    T min_value = *std::min_element(values.begin(), values.end());
-
-    for (size_t first = 0; first < count; ++first) {
+    for (size_t first = 0; first < count;) {
         T first_value = values[first];
 
-        for (size_t second = first + 1; second < count; ++second) {
+        size_t second = first + 1;
+        size_t third  = count - 1;
+
+        while (third > second) {
             T second_value = values[second];
-            T remaining    = target - (first_value + second_value);
+            T third_value  = values[third];
 
-            if ((remaining < min_value) || (remaining > max_value)) {
-                continue;
-            }
+            T sum = first_value + second_value + third_value;
 
-            for (size_t third = second + 1; third < count; ++third) {
-                T third_value = values[third];
-                if (third_value == remaining) {
-                    triplets.emplace_back(Triple{first_value, second_value, third_value});
+            if (sum == target) {
+                triplets.emplace_back(Triple{first_value, second_value, third_value});
+
+                // Go to the next second value that differs from the current one.
+                ++second;
+                while ((second < third) && (values[second] == second_value)) {
+                    ++second;
                 }
+            } else if (sum > target) {
+                --third;
+            } else {  // sum < target
+                ++second;
             }
         }
+
+        // Find the next first value that differs from the current one.
+        ++first;
+        while ((first < count) && (values[first] == first_value)) {
+            ++first;
+        }
     }
-
-    for (auto& tr : triplets) {
-        std::sort(tr.begin(), tr.end());
-    }
-    std::sort(triplets.begin(), triplets.end());
-
-    auto last_unique = std::unique(triplets.begin(), triplets.end());
-
-    triplets.erase(last_unique, triplets.end());
-
     return triplets;
 }
 
@@ -101,9 +104,14 @@ static void assert_orderless_match(
 }
 
 int main() {
-    assert_orderless_match(three_sum({-1, 0, 1, 2, -1, -4}, 0), {{-1, -1, 2}, {-1, 0, 1}});
-    assert_orderless_match(three_sum({0, 1, 1}, 0), {});
-    assert_orderless_match(three_sum({0, 0, 0}, 0), {{0, 0, 0}});
+    std::vector values1 = {-1, 0, 1, 2, -1, -4};
+    assert_orderless_match(three_sum(values1, 0), {{-1, -1, 2}, {-1, 0, 1}});
+
+    std::vector values2 = {0, 1, 1};
+    assert_orderless_match(three_sum(values2, 0), {});
+
+    std::vector values3 = {0, 0, 0};
+    assert_orderless_match(three_sum(values3, 0), {{0, 0, 0}});
 
     report_success();
     return 0;
