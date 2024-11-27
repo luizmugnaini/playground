@@ -19,8 +19,9 @@ list(
     APPEND EASY_PROBLEMS
     "duplicate_integer"
     "is_anagram"
-    "two_sum"
     "unique_elements"
+    "two_sum"
+    "two_sum_2"
 )
 
 list(
