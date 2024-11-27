@@ -32,6 +32,7 @@ list(
     "top_k_frequent"
     "valid_sudoku"
     "longest_consecutive"
+    "three_sum"
 )
 
 list(
