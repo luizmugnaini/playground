@@ -33,6 +33,7 @@ list(
     "valid_sudoku"
     "longest_consecutive"
     "three_sum"
+    "container_with_most_water"
 )
 
 list(
