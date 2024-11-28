@@ -38,7 +38,7 @@ list(
 
 list(
     APPEND HARD_PROBLEMS
-    # Empty for now...
+    "trapping_rain_water"
 )
 
 # ------------------------------------------------------------------------------
