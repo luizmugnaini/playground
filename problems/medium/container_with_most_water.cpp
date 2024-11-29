@@ -15,9 +15,6 @@
 #include <vector>
 #include "../common.hpp"
 
-#define max_value(lhs, rhs) (((lhs) >= (rhs)) ? (lhs) : (rhs))
-#define min_value(lhs, rhs) (((lhs) <= (rhs)) ? (lhs) : (rhs))
-
 uint32_t max_water_brute_force(std::vector<uint32_t> const& bar_heights) {
     size_t bar_count = bar_heights.size();
 
