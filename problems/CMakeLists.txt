@@ -36,6 +36,7 @@ list(
     "three_sum"
     "container_with_most_water"
     "longest_substring_with_unique_characters"
+    "longest_repeating_character_replacement"
 )
 
 list(
@@ -51,8 +52,8 @@ set(
     MSVC_FLAGS
     "/std:c++20"
     "/nologo"
-    "/EHsc" # Unfortunately we have to allow exceptions because we'll be using the STL.
-    # "/WX"
+    "/EHc" # Unfortunately we have to allow exceptions because we'll be using the STL.
+    "/WX"
     "/W4"
     "/Z7"
     "/Ob1"

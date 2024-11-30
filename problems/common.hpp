@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
 #define max_value(lhs, rhs) (((lhs) >= (rhs)) ? (lhs) : (rhs))
 #define min_value(lhs, rhs) (((lhs) <= (rhs)) ? (lhs) : (rhs))
@@ -23,3 +24,14 @@
     } while (0)
 
 #define report_success() std::cout << "[INFO][" << __builtin_FILE() << "] Tests passed!\n"
+
+namespace debug {
+    template <typename T>
+    void print_vector(std::vector<T> const& vec) {
+        std::cout << "{";
+        for (T const& e : vec) {
+            std::cout << e << ", ";
+        }
+        std::cout << "}\n";
+    }
+}  // namespace debug
