@@ -1,7 +1,7 @@
 use std::fs;
 
 pub fn run() {
-    let boards = fs::read_to_string("input/day4.txt").expect("Failed to open file");
+    let boards = fs::read_to_string("aoc21/input/day4.txt").expect("Failed to open file");
     println!(
         "=> Day 4 part a: first winning board score = {} (expected {})",
         fst_winning_score(&boards).unwrap(),

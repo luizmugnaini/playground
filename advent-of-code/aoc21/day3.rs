@@ -1,14 +1,14 @@
 use std::fs;
 
 pub fn run() {
-    let report_a = fs::read_to_string("input/day3.txt").expect("Failed to open file");
+    let report_a = fs::read_to_string("aoc21/input/day3.txt").expect("Failed to open file");
     println!(
         "=> Day 3 part a: diagnostic report yielded gamma * epsilon = {} (expected {})",
         power_consumption(&report_a),
         3429254
     );
 
-    let report_b = fs::read_to_string("input/day3.txt").expect("Failed to open file");
+    let report_b = fs::read_to_string("aoc21/input/day3.txt").expect("Failed to open file");
     println!(
         "=> Day 3 part b: o2 * co2 = {} (expected {})",
         life_support_rating(&report_b),

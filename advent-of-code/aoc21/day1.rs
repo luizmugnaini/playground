@@ -1,7 +1,7 @@
 use std::fs;
 
 pub fn run() {
-    let depths: Vec<i32> = fs::read_to_string("input/day1.txt")
+    let depths: Vec<i32> = fs::read_to_string("aoc21/input/day1.txt")
         .expect("Failed to open file")
         .lines()
         .map(|x| x.parse::<i32>().unwrap())

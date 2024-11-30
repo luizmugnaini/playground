@@ -1,7 +1,7 @@
 use std::{collections::VecDeque, fs};
 
 pub fn run() {
-    let fish_timer = fs::read_to_string("input/day6.txt").expect("Failed to open file");
+    let fish_timer = fs::read_to_string("aoc21/input/day6.txt").expect("Failed to open file");
     println!(
         "=> Day 6 part a: number of lanternfishes after 80 days = {} (expected {})",
         evolution_model(&fish_timer, 80),

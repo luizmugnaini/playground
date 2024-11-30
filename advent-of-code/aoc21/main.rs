@@ -27,7 +27,7 @@ fn run_day(day: &str) {
         "6" => day6::run(),
         "7" => day7::run(),
         _ => {
-            println!("Solution of day {} is currently unavailable", day);
+            println!("Solution of day {} isn't currently unavailable", day);
         }
     }
 }

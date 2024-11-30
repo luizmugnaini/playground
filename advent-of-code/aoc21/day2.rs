@@ -1,7 +1,7 @@
 use std::fs;
 
 pub fn run() {
-    let moves = fs::read_to_string("input/day2.txt").expect("Failed to open file");
+    let moves = fs::read_to_string("aoc21/input/day2.txt").expect("Failed to open file");
     println!(
         "=> Day 2 part a: depth * horizontal = {} (expected {})",
         move_submarine(&moves),

@@ -1,7 +1,7 @@
 use std::{cmp::min, fs};
 
 pub fn run() {
-    let crab_positions = fs::read_to_string("input/day7.txt").expect("Failed to open file");
+    let crab_positions = fs::read_to_string("aoc21/input/day7.txt").expect("Failed to open file");
     println!(
         "=> Day 7 part a: minimum spent fuel for alignment = {} (expected {})",
         alignment_fuel(&crab_positions),

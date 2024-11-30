@@ -1,7 +1,7 @@
 use std::{collections::HashMap, fs};
 
 pub fn run() {
-    let vent_data = fs::read_to_string("input/day5.txt").expect("Failed to open file");
+    let vent_data = fs::read_to_string("aoc21/input/day5.txt").expect("Failed to open file");
     println!(
         "=> Day 5 part a: number of dangerous points = {} (expected {})",
         dangerous_points(&vent_data),
