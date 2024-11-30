@@ -22,6 +22,7 @@ list(
     "unique_elements"
     "two_sum"
     "two_sum_2"
+    "valid_palindrome"
 )
 
 list(
