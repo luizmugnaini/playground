@@ -3,30 +3,31 @@
 #include <yoneda_math.h>
 #include <yoneda_memory.h>
 #include <yoneda_streams.h>
+#include <yoneda_time.h>
 
-static usize day1_parse_input_file(yo_Arena* arena, cstring input_path, u32* ids_left, u32* ids_right, usize id_max_count) {
-    yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(arena);
+typedef struct Day1Result {
+    u64 result;
+    f64 elapsed_time;
+} Day1Result;
 
-    yo_FileReadResult input_read = yo_read_file(arena, input_path, YO_FILE_FLAG_READ_BIN);
-    yo_assert(input_read.status == YO_FILE_STATUS_NONE);
-
-    char* input_end = yo_cast(char*, input_read.buf + input_read.buf_size);
+static u64 day1_parse_input_file(yo_String input, u32* ids_left, u32* ids_right, usize id_max_count) {
+    char const* input_end = yo_cast(char const*, input.buf + input.length);
 
     usize const NUMBER_LENGTH = 5;  // @NOTE: Very, very hard coded, we only need perf.
     char        number_buf[8] = {0};
 
-    usize id_count = 0;
+    u64 id_count = 0;
 
-    char* current_char = yo_cast(char*, input_read.buf);
-    while ((current_char < input_end) && (id_count < id_max_count)) {
+    char const* current_char = yo_cast(char const*, input.buf);
+    while ((current_char < input_end) && (id_count <= id_max_count)) {
         // Parse ID 1.
-        yo_memory_move(yo_cast(u8*, number_buf), yo_cast(u8*, current_char), NUMBER_LENGTH);
+        yo_memory_move(yo_cast(u8*, number_buf), yo_cast(u8 const*, current_char), NUMBER_LENGTH);
         yo_assert(yo_string_to_u32((yo_String){number_buf, NUMBER_LENGTH}, &ids_left[id_count]));
 
         current_char += NUMBER_LENGTH + 3;  // Skip three spaces and go to next ID.
 
         // Parse ID 2.
-        yo_memory_move(yo_cast(u8*, number_buf), yo_cast(u8*, current_char), NUMBER_LENGTH);
+        yo_memory_move(yo_cast(u8*, number_buf), yo_cast(u8 const*, current_char), NUMBER_LENGTH);
         yo_assert_fmt(yo_string_to_u32((yo_String){number_buf, NUMBER_LENGTH}, &ids_right[id_count]), "%s", number_buf);
 
         current_char += NUMBER_LENGTH;
@@ -39,15 +40,15 @@ static usize day1_parse_input_file(yo_Arena* arena, cstring input_path, u32* ids
         ++id_count;
     }
 
-    yo_arena_checkpoint_restore(arena_checkpoint);
-
     return id_count;
 }
 
-static u64 day1_part1(yo_Arena* arena) {
+static Day1Result day1_part1(yo_String input) {
+    f64 start_time = yo_current_time_in_seconds();
+
     u32   ids_left[1000];
     u32   ids_right[1000];
-    usize id_count = day1_parse_input_file(arena, make_input_path("1", "1"), ids_left, ids_right, yo_count_of(ids_left));
+    usize id_count = day1_parse_input_file(input, ids_left, ids_right, yo_count_of(ids_left));
 
     quick_sort_u32_range(ids_left, ids_left + id_count - 1);
     quick_sort_u32_range(ids_right, ids_right + id_count - 1);
@@ -57,13 +58,20 @@ static u64 day1_part1(yo_Arena* arena) {
         distance += yo_i32_abs_value(yo_cast(i32, ids_left[idx]) - yo_cast(i32, ids_right[idx]));
     }
 
-    return yo_cast(u64, distance);
+    f64 end_time = yo_current_time_in_seconds();
+
+    return (Day1Result){
+        .result       = yo_cast(u64, distance),
+        .elapsed_time = end_time - start_time,
+    };
 }
 
-static u64 day1_part2(yo_Arena* arena) {
+static Day1Result day1_part2(yo_String input) {
+    f64 start_time = yo_current_time_in_seconds();
+
     u32   ids_left[1000];
     u32   ids_right[1000];
-    usize id_count = day1_parse_input_file(arena, make_input_path("1", "2"), ids_left, ids_right, yo_count_of(ids_left));
+    usize id_count = day1_parse_input_file(input, ids_left, ids_right, yo_count_of(ids_left));
 
     quick_sort_u32_range(ids_left, ids_left + id_count - 1);
     quick_sort_u32_range(ids_right, ids_right + id_count - 1);
@@ -95,5 +103,10 @@ static u64 day1_part2(yo_Arena* arena) {
         similarity_score += left_value * appearence_count;
     }
 
-    return similarity_score;
+    f64 end_time = yo_current_time_in_seconds();
+
+    return (Day1Result){
+        .result       = similarity_score,
+        .elapsed_time = end_time - start_time,
+    };
 }

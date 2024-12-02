@@ -288,6 +288,8 @@ local function build_yoneda_lib(tc)
         make_path({ "yoneda", "build.lua" }),
         cc_flag,
         "-debug",
+        "--",
+        "-DYO_ENABLE_ANSI_COLORS",
     }))
 end
 
