@@ -1,0 +1,3 @@
+[submodule "advent-of-code/yoneda"]
+	path = advent-of-code/yoneda
+	url = https://github.com/luizmugnaini/yoneda.git

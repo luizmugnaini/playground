@@ -89,6 +89,8 @@ local os_file_info = {
     },
 }
 
+local lua_exe = (type(jit) == "table") and "luajit" or "lua"
+
 -- -----------------------------------------------------------------------------
 -- Utility functions
 -- -----------------------------------------------------------------------------
@@ -163,27 +165,36 @@ local os_ext = os_info.windows and os_file_info.windows or os_file_info.unix
 
 local compiler_flags = {
     clang = {
-        opt_include = "-I",
-        opt_define  = "-D",
-        opt_std     = "-std=",
-        opt_out_exe = "-o",
-        flags_common = "-pedantic -Wall -Wextra -Wpedantic -Wuninitialized -Wconversion -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Wpointer-arith -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Werror=implicit-function-declaration -Wno-unused-variable -Werror -g -O0 -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=undefined -fstack-protector-strong -fsanitize=leak",
+        opt_include          = "-I",
+        opt_define           = "-D",
+        opt_link_flags_start = "",
+        opt_lib_link         = "-l",
+        opt_lib_path         = "-L",
+        opt_std              = "-std=",
+        opt_out_exe          = "-o",
+        flags_common         = "-pedantic -Wall -Wextra -Wpedantic -Wuninitialized -Wconversion -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Wpointer-arith -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Werror=implicit-function-declaration -Wno-unused-variable -Werror -g -O0 -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=undefined -fstack-protector-strong -fsanitize=leak",
     },
     msvc = {
-        opt_include = "-I",
-        opt_define  = "-D",
-        opt_std     = "/std:",
-        opt_out_obj = "/Fo",
-        opt_out_exe = "/Fe",
-        opt_out_pdb = "/Fd",
-        flags       = "-nologo /INCREMENTAL:NO -Oi -MP -FC -GF -GA -GR- -EHa- /W4 /Ob1 /Od /Oy- /Z7 /RTC1 /MTd /fsanitize=address",
+        opt_include          = "-I",
+        opt_define           = "-D",
+        opt_link_flags_start = "/link",
+        opt_lib_link         = "",
+        opt_lib_path         = "/LIBPATH:",
+        opt_std              = "/std:",
+        opt_out_obj          = "/Fo",
+        opt_out_exe          = "/Fe",
+        opt_out_pdb          = "/Fd",
+        flags                = "-nologo /INCREMENTAL:NO -Oi -MP -FC -GF -GA -GR- -EHa- /W4 /Ob1 /Od /Oy- /Z7 /RTC1 /MTd /fsanitize=address",
     },
     clang_cl = {
-        opt_include = "-I",
-        opt_define  = "-D",
-        opt_std     = "/std:",
-        opt_out_exe = "-o",
-        flags       = "/INCREMENTAL:NO -EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
+        opt_include          = "-I",
+        opt_define           = "-D",
+        opt_link_flags_start = "/link",
+        opt_lib_link         = "",
+        opt_lib_path         = "/LIBPATH:",
+        opt_std              = "/std:",
+        opt_out_exe          = "-o",
+        flags                = "/INCREMENTAL:NO -EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
     },
 }
 
@@ -264,6 +275,54 @@ local function make_cpp_solutions()
     end
 end
 
+local function build_yoneda_lib(tc)
+    local cc_flag
+    if tc.cc == "clang-cl" or tc.cc == "clang" then
+        cc_flag = "-clang"
+    else 
+        cc_flag = "-msvc"
+    end
+
+    exec(concat({
+        lua_exe,
+        make_path({ "yoneda", "build.lua" }),
+        cc_flag,
+        "-debug",
+    }))
+end
+
+local function make_c_solutions()
+    local tc = get_c_toolchain()
+    build_yoneda_lib(tc)
+
+    local aocs = { "aoc24" }
+
+    for _, aoc in ipairs(aocs) do
+        local solution_path = make_path({ aoc, "main.c" })
+        local solution_exe = make_path({ out_dir, "c_" .. aoc.. os_ext.exe })
+
+        local out_obj_flag = ""
+        if tc.cc == "cl" then
+            out_obj_flag = tc.opt_out_obj .. make_path({ out_dir, "c_" .. aoc.. os_ext.obj })
+        end
+
+        exec(concat({
+            tc.cc,
+            tc.opt_std .. "c11",
+            tc.flags,
+            tc.opt_include .. make_path({ "yoneda", "include" }),
+            tc.opt_define .. "YO_DEBUG",
+            tc.opt_define .. "YO_ENABLE_ANSI_COLORS",
+            out_obj_flag,
+            tc.opt_out_exe .. solution_exe,
+            solution_path,
+            tc.opt_link_flags_start,
+            tc.opt_lib_path .. out_dir,
+            tc.opt_lib_link .. (os_info.windows and "yoneda.lib" or "libyoneda.a"),
+        }))
+    end
+end
+
 prepare_output_target()
 
 if options.rust.on then
@@ -272,6 +331,10 @@ end
 
 if options.cpp.on then
     make_cpp_solutions()
+end
+
+if options.c.on then
+    make_c_solutions()
 end
 
 local end_time = os.time()
