@@ -79,7 +79,7 @@ static Day2Result day2_part1(yo_String input) {
         for (u32 value_idx = 1u; (value_idx < count - 1u) && is_safe; ++value_idx) {
             i32 diff = yo_cast(i32, report->values[value_idx + 1u]) - yo_cast(i32, report->values[value_idx]);
 
-            is_safe &= !yo_i32_have_opposite_signs(diff, last_diff);
+            is_safe &= !yo_i32_opposite_sign(diff, last_diff);
             is_safe &= yo_value_in_range(yo_i32_abs_value(diff), 1u, 3u);
 
             last_diff = diff;
@@ -103,7 +103,7 @@ static yo_inline bool day2_part2_is_diff_in_safe_range(i32 diff) {
 static yo_inline bool day2_part2_is_diff_safe(i32 last_diff, i32 current_diff) {
     return day2_part2_is_diff_in_safe_range(last_diff) &&
            day2_part2_is_diff_in_safe_range(current_diff) &&
-           !yo_i32_have_opposite_signs(current_diff, last_diff);
+           !yo_i32_opposite_sign(current_diff, last_diff);
 }
 
 static Day2Result day2_part2(yo_String input) {

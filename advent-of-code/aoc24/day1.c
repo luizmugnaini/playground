@@ -1,6 +1,6 @@
+#include <yoneda_bit.h>
 #include <yoneda_core.h>
 #include <yoneda_log.h>
-#include <yoneda_math.h>
 #include <yoneda_memory.h>
 #include <yoneda_streams.h>
 #include <yoneda_time.h>

@@ -173,7 +173,7 @@ local compiler_flags = {
         opt_lib_path         = "-L",
         opt_std              = "-std=",
         opt_out_exe          = "-o",
-        flags_common         = "-pedantic -Wall -Wextra -Wpedantic -Wuninitialized -Wconversion -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Wpointer-arith -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Werror=implicit-function-declaration -Wno-unused-variable -Werror -g -O0 -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=undefined -fstack-protector-strong -fsanitize=leak",
+        flags_debug          = "-pedantic -Wall -Wextra -Wpedantic -Wuninitialized -Wconversion -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Wpointer-arith -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Werror=implicit-function-declaration -Wno-unused-variable -Werror -g -O0 -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=undefined -fstack-protector-strong -fsanitize=leak",
         flags_release        = "-O2",
     },
     msvc = {
@@ -186,7 +186,7 @@ local compiler_flags = {
         opt_out_obj          = "/Fo",
         opt_out_exe          = "/Fe",
         opt_out_pdb          = "/Fd",
-        flags                = "-nologo /INCREMENTAL:NO -Oi -MP -FC -GF -GA -GR- /EHa- /W4 /Ob1 /Od /Oy- /Z7 /RTC1 /MTd /fsanitize=address",
+        flags_debug          = "-nologo /INCREMENTAL:NO -Oi -MP -FC -GF -GA -GR- /EHa- /W4 /Ob1 /Od /Oy- /Z7 /RTC1 /MTd /fsanitize=address",
         flags_release        = "-nologo /INCREMENTAL:NO /EHa- -GR- -O2 /MT",
     },
     clang_cl = {
@@ -197,7 +197,7 @@ local compiler_flags = {
         opt_lib_path         = "/LIBPATH:",
         opt_std              = "/std:",
         opt_out_exe          = "-o",
-        flags                = "/INCREMENTAL:NO /EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
+        flags_debug          = "/INCREMENTAL:NO /EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
         flags_release        = "/INCREMENTAL:NO /EHa- -O2 /MT",
     },
 }
