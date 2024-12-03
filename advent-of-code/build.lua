@@ -13,6 +13,7 @@ local options = {
     typescript = { on = false, description = "Compile the Typescript solutions."    },
     msvc       = { on = false, description = "Compile with Visual Studio compiler." },
     clang      = { on = false, description = "Compile with Clang."                  },
+    release    = { on = false, description = "Compile in release mode."             },
     help       = { on = false, description = "Print the help message."              },
 }
 
@@ -173,6 +174,7 @@ local compiler_flags = {
         opt_std              = "-std=",
         opt_out_exe          = "-o",
         flags_common         = "-pedantic -Wall -Wextra -Wpedantic -Wuninitialized -Wconversion -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Wpointer-arith -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Werror=implicit-function-declaration -Wno-unused-variable -Werror -g -O0 -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=undefined -fstack-protector-strong -fsanitize=leak",
+        flags_release        = "-O2",
     },
     msvc = {
         opt_include          = "-I",
@@ -184,7 +186,8 @@ local compiler_flags = {
         opt_out_obj          = "/Fo",
         opt_out_exe          = "/Fe",
         opt_out_pdb          = "/Fd",
-        flags                = "-nologo /INCREMENTAL:NO -Oi -MP -FC -GF -GA -GR- -EHa- /W4 /Ob1 /Od /Oy- /Z7 /RTC1 /MTd /fsanitize=address",
+        flags                = "-nologo /INCREMENTAL:NO -Oi -MP -FC -GF -GA -GR- /EHa- /W4 /Ob1 /Od /Oy- /Z7 /RTC1 /MTd /fsanitize=address",
+        flags_release        = "-nologo /INCREMENTAL:NO /EHa- -GR- -O2 /MT",
     },
     clang_cl = {
         opt_include          = "-I",
@@ -194,7 +197,8 @@ local compiler_flags = {
         opt_lib_path         = "/LIBPATH:",
         opt_std              = "/std:",
         opt_out_exe          = "-o",
-        flags                = "/INCREMENTAL:NO -EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
+        flags                = "/INCREMENTAL:NO /EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
+        flags_release        = "/INCREMENTAL:NO /EHa- -O2 /MT",
     },
 }
 
@@ -259,7 +263,7 @@ local function make_cpp_solutions()
             out_obj_flag = tc.opt_out_obj .. make_path({ out_dir, "cpp_" .. aoc.. os_ext.obj })
         end
 
-        local flags = tc.flags
+        local flags = options.release.on and tc.flags_release or tc.flags_debug
         if tc.cc == "clang-cl" then
             flags = flags .. " -Wno-c++98-compat -Wno-c++20-compat"
         end
@@ -287,7 +291,7 @@ local function build_yoneda_lib(tc)
         lua_exe,
         make_path({ "yoneda", "build.lua" }),
         cc_flag,
-        "-debug",
+        options.release.on and "-release" or "-debug",
         "--",
         "-DYO_ENABLE_ANSI_COLORS",
     }))
@@ -311,7 +315,7 @@ local function make_c_solutions()
         exec(concat({
             tc.cc,
             tc.opt_std .. "c11",
-            tc.flags,
+            options.release.on and tc.flags_release or tc.flags_debug,
             tc.opt_include .. make_path({ "yoneda", "include" }),
             tc.opt_define .. "YO_DEBUG",
             tc.opt_define .. "YO_ENABLE_ANSI_COLORS",
