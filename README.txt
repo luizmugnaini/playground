@@ -1,4 +1,5 @@
-# Playground
+Playground
+==========
 
 This repository contains experiments, exercises, and mini-projects in various languages. Here is
 a summary of what you can find:
@@ -10,6 +11,7 @@ a summary of what you can find:
 - learn-you-node: Solutions to the https://github.com/workshopper/learnyounode lessons.
 - problems: Solutions to the https://neetcode.io/roadmap problems.
 
-# License
+License
+=======
 
 This repository is licensed under the Do What the Fuck You Want to Public License.
