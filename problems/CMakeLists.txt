@@ -23,6 +23,7 @@ list(
     "two_sum"
     "two_sum_2"
     "valid_palindrome"
+    "valid_parentheses"
 )
 
 list(
