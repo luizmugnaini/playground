@@ -18,7 +18,7 @@
 #include <type_traits>
 #include <unordered_set>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 template <typename T>
     requires std::is_integral_v<T>

@@ -16,7 +16,7 @@
 #include <type_traits>
 #include <unordered_set>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 // ------------------------------------------------------------------------------------------------
 // Problem 1 solutions.

@@ -13,7 +13,7 @@
 
 #include <algorithm>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 uint32_t max_water_brute_force(std::vector<uint32_t> const& bar_heights) {
     size_t bar_count = bar_heights.size();

@@ -16,7 +16,7 @@
 
 #include <string>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 enum Parenthesis {
     PAREN = 0,

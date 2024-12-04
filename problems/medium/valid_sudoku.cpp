@@ -16,7 +16,7 @@
 // ------------------------------------------------------------------------------------------------
 
 #include <array>
-#include "../common.hpp"
+#include <common.hpp>
 
 static constexpr char EMPTY_SLOT = '.';
 

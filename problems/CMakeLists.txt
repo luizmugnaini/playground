@@ -38,6 +38,10 @@ list(
     "container_with_most_water"
     "longest_substring_with_unique_characters"
     "longest_repeating_character_replacement"
+    "minimum_stack"
+    "evaluate_reverse_polish_notation"
+    "search_in_2d_matrix"
+    "string_to_integer"
 )
 
 list(
@@ -67,6 +71,7 @@ set(
 function(build_solutions PROBLEM_CATEGORY PROBLEM_LIST)
     foreach(p IN LISTS ${PROBLEM_LIST})
         add_executable(${p} "${CMAKE_SOURCE_DIR}/${PROBLEM_CATEGORY}/${p}.cpp")
+        target_include_directories(${p} PRIVATE "${CMAKE_SOURCE_DIR}/include")
         target_compile_options(${p} PRIVATE ${MSVC_FLAGS})
     endforeach()
 endfunction()

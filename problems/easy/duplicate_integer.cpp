@@ -12,7 +12,7 @@
 #include <set>
 #include <type_traits>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 template <typename T>
     requires std::is_trivially_copyable_v<T>

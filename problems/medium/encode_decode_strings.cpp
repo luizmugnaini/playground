@@ -11,7 +11,7 @@
 
 #include <string>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 static constexpr char SEPARATOR = '#';
 

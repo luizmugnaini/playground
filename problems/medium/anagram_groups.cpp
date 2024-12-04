@@ -16,7 +16,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 using AnagramGroups = std::vector<std::vector<std::string>>;
 

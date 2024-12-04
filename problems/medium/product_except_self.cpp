@@ -12,7 +12,7 @@
 // ------------------------------------------------------------------------------------------------
 
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 template <typename T>
 static std::vector<T> product_except_self(std::vector<T> const& values) {

@@ -13,7 +13,7 @@
 
 #include <cctype>
 #include <string>
-#include "../common.hpp"
+#include <common.hpp>
 
 static bool is_valid_palindrome(std::string const& str) {
    auto left     = str.begin();

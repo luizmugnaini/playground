@@ -15,7 +15,7 @@
 #include <array>
 #include <limits>
 #include <string_view>
-#include "../common.hpp"
+#include <common.hpp>
 
 static bool is_anagram(std::string_view lhs, std::string_view rhs) noexcept {
     constexpr size_t MAX_UNIQUE_CHARS = std::numeric_limits<char>::max();

@@ -16,7 +16,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 constexpr size_t CHARACTER_COUNT = 'Z' - 'A' + 1;
 

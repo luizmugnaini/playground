@@ -17,7 +17,7 @@
 #include <set>
 #include <unordered_map>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 template <typename T>
 static std::vector<T> top_frequent(std::vector<T> const& values, size_t frequent_values_count) {

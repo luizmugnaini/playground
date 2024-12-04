@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <array>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 template <typename T>
 using Triple = std::array<T, 3>;
@@ -45,7 +45,7 @@ std::vector<Triple<T>> three_sum(std::vector<T>& values, T target) {
             T sum = first_value + second_value + third_value;
 
             if (sum == target) {
-                triplets.emplace_back(Triple{first_value, second_value, third_value});
+                triplets.emplace_back(Triple<T>{first_value, second_value, third_value});
 
                 // Go to the next second value that differs from the current one.
                 ++second;

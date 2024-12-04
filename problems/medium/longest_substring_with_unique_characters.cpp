@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <array>
 #include <string>
-#include "../common.hpp"
+#include <common.hpp>
 
 size_t length_of_longest_substring_with_unique_characters(std::string const& str) {
     auto length = static_cast<int64_t>(str.size());

@@ -18,7 +18,7 @@
 #include <algorithm>
 #include <utility>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 template <typename T>
 std::pair<size_t, size_t> two_sum_indices(std::vector<T> const& non_decreasing_values, T target_sum) {

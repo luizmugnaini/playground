@@ -14,7 +14,7 @@
 #include <array>
 #include <utility>
 #include <vector>
-#include "../common.hpp"
+#include <common.hpp>
 
 static std::pair<std::array<size_t, 2>, bool> two_sum(
     std::vector<int> const& values,
