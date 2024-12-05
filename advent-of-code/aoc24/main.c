@@ -2,6 +2,7 @@
 #include "common.c"
 #include "day1.c"
 #include "day2.c"
+#include "day3.c"
 // clang-format on
 
 #include <yoneda_log.h>
@@ -27,8 +28,8 @@ int main(void) {
         Day1Result part1 = day1_part1(get_input(&arena, make_input_path("1", "1")));
         Day1Result part2 = day1_part2(get_input(&arena, make_input_path("1", "2")));
 
-        yo_log_info_fmt("DAY 1, PART 1 (%f seconds): %zu.", part1.elapsed_time, part1.result);
-        yo_log_info_fmt("DAY 1, PART 2 (%f seconds): %zu.", part2.elapsed_time, part2.result);
+        yo_log_info_fmt("DAY 1, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
+        yo_log_info_fmt("DAY 1, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
 
         yo_arena_checkpoint_restore(arena_checkpoint);
     }
@@ -38,14 +39,24 @@ int main(void) {
         yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(&arena);
 
         Day2Result part1 = day2_part1(get_input(&arena, make_input_path("2", "1")));
-        Day2Result part2 = day2_part2(get_input(
-            &arena,
-            make_input_path("2", "2")));
-        // "aoc24/input/part2_all_unsafe.txt"));
-        // "aoc24/input/rando.txt"));
+        Day2Result part2 = day2_part2(get_input(&arena, make_input_path("2", "2")));
 
-        yo_log_info_fmt("DAY 2, PART 1 (%f seconds): %zu.", part1.elapsed_time, part1.result);
-        yo_log_info_fmt("DAY 2, PART 2 (%f seconds): %zu.", part2.elapsed_time, part2.result);
+        yo_log_info_fmt("DAY 2, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
+        yo_log_info_fmt("DAY 2, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
+
+        yo_arena_checkpoint_restore(arena_checkpoint);
+    }
+
+    // Day 3.
+    {
+        yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(&arena);
+
+        Day3Result part1 = day3_part1(get_input(&arena, make_input_path("3", "1")));
+        Day3Result part2 = day3_part2(  // yo_comptime_make_string("xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"));
+            get_input(&arena, make_input_path("3", "2")));
+
+        yo_log_info_fmt("DAY 3, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
+        yo_log_info_fmt("DAY 3, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
 
         yo_arena_checkpoint_restore(arena_checkpoint);
     }

@@ -11,14 +11,14 @@ typedef struct Day1Result {
 } Day1Result;
 
 static u64 day1_parse_input_file(yo_String input, u32* ids_left, u32* ids_right, usize id_max_count) {
-    char const* input_end = yo_cast(char const*, input.buf + input.length);
+    char const* input_end = input.buf + input.length;
 
     usize const NUMBER_LENGTH = 5;  // @NOTE: Very, very hard coded, we only need perf.
     char        number_buf[8] = {0};
 
     u64 id_count = 0;
 
-    char const* current_char = yo_cast(char const*, input.buf);
+    char const* current_char = input.buf;
     while ((current_char < input_end) && (id_count <= id_max_count)) {
         // Parse ID 1.
         yo_memory_move(yo_cast(u8*, number_buf), yo_cast(u8 const*, current_char), NUMBER_LENGTH);
