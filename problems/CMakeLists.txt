@@ -44,6 +44,7 @@ list(
     "search_in_2d_matrix"
     "string_to_integer"
     "generate_parentheses"
+    "permutation_in_string"
 )
 
 list(
