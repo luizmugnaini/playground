@@ -42,6 +42,7 @@ list(
     "evaluate_reverse_polish_notation"
     "search_in_2d_matrix"
     "string_to_integer"
+    "generate_parentheses"
 )
 
 list(

@@ -34,4 +34,24 @@ namespace debug {
         }
         std::cout << "}\n";
     }
+
+    template <typename T>
+    static bool orderless_match(std::vector<T> lhs, std::vector<T> rhs) {
+        bool matches = true;
+        for (T const& l : lhs) {
+            bool found = false;
+            for (T const& r : rhs) {
+                if (l == r) {
+                    found = true;
+                    break;
+                }
+            }
+
+            matches &= found;
+            if (!matches) {
+                break;
+            }
+        }
+        return matches;
+    }
 }  // namespace debug

@@ -14,10 +14,10 @@
 // ------------------------------------------------------------------------------------------------
 
 #include <algorithm>
+#include <common.hpp>
 #include <set>
 #include <unordered_map>
 #include <vector>
-#include <common.hpp>
 
 template <typename T>
 static std::vector<T> top_frequent(std::vector<T> const& values, size_t frequent_values_count) {
@@ -48,51 +48,22 @@ static std::vector<T> top_frequent(std::vector<T> const& values, size_t frequent
     return result;
 }
 
-template <typename T>
-static bool orderless_match(std::vector<T> lhs, std::vector<T> rhs) {
-    bool matches = true;
-    for (T const& l : lhs) {
-        bool found = false;
-        for (T const& r : rhs) {
-            if (l == r) {
-                found = true;
-                break;
-            }
-        }
-
-        matches &= found;
-        if (!matches) {
-            break;
-        }
-    }
-    return matches;
-}
-
-template <typename T>
-static void print_elems(std::vector<T> const& values) {
-    std::cout << "[ ";
-    for (T const& v : values) {
-        std::cout << v << ", ";
-    }
-    std::cout << "]\n";
-}
-
 int main() {
     // Test 1.
     {
         std::vector<int32_t> values = {1, 2, 2, 3, 3, 3};
 
         auto result1 = top_frequent(values, 1);
-        assert(orderless_match({3}, result1));
+        assert(debug::orderless_match({3}, result1));
 
         auto result2 = top_frequent(values, 2);
-        assert(orderless_match({2, 3}, result2));
+        assert(debug::orderless_match({2, 3}, result2));
 
         auto result3 = top_frequent(values, 3);
-        assert(orderless_match({3, 1, 2}, result3));
+        assert(debug::orderless_match({3, 1, 2}, result3));
 
         auto result4 = top_frequent(values, 4);
-        assert(orderless_match(result3, result4));
+        assert(debug::orderless_match(result3, result4));
     }
 
     // Test 2.
@@ -115,16 +86,16 @@ int main() {
         std::vector<std::string> unique_values{set_values.begin(), set_values.end()};
 
         auto result1 = top_frequent(values, 1);
-        assert(orderless_match({"pokemon"}, result1));
+        assert(debug::orderless_match({"pokemon"}, result1));
 
         auto result2 = top_frequent(values, 2);
-        assert(orderless_match({"pokemon", "hobbit"}, result2));
+        assert(debug::orderless_match({"pokemon", "hobbit"}, result2));
 
         auto result3 = top_frequent(values, 3);
-        assert(orderless_match({"lord of the rings", "hobbit", "pokemon"}, result3));
+        assert(debug::orderless_match({"lord of the rings", "hobbit", "pokemon"}, result3));
 
         auto result_too_much = top_frequent(values, values.size() + 11);
-        assert(orderless_match(unique_values, result_too_much));
+        assert(debug::orderless_match(unique_values, result_too_much));
     }
 
     report_success();
