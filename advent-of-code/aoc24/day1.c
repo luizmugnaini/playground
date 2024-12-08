@@ -4,11 +4,7 @@
 #include <yoneda_memory.h>
 #include <yoneda_streams.h>
 #include <yoneda_time.h>
-
-typedef struct Day1Result {
-    u64 result;
-    f64 elapsed_time;
-} Day1Result;
+#include "common.h"
 
 static u64 day1_parse_input_file(yo_String input, u32* ids_left, u32* ids_right, usize id_max_count) {
     char const* input_end = input.buf + input.length;
@@ -43,7 +39,7 @@ static u64 day1_parse_input_file(yo_String input, u32* ids_left, u32* ids_right,
     return id_count;
 }
 
-static Day1Result day1_part1(yo_String input) {
+static Result day1_part1(yo_String input) {
     f64 start_time = yo_current_time_in_seconds();
 
     u32   ids_left[1000];
@@ -60,13 +56,13 @@ static Day1Result day1_part1(yo_String input) {
 
     f64 end_time = yo_current_time_in_seconds();
 
-    return (Day1Result){
+    return (Result){
         .result       = yo_cast(u64, distance),
         .elapsed_time = end_time - start_time,
     };
 }
 
-static Day1Result day1_part2(yo_String input) {
+static Result day1_part2(yo_String input) {
     f64 start_time = yo_current_time_in_seconds();
 
     u32   ids_left[1000];
@@ -105,7 +101,7 @@ static Day1Result day1_part2(yo_String input) {
 
     f64 end_time = yo_current_time_in_seconds();
 
-    return (Day1Result){
+    return (Result){
         .result       = similarity_score,
         .elapsed_time = end_time - start_time,
     };

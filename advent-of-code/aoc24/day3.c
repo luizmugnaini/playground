@@ -1,11 +1,8 @@
-#include <yoneda_core.h>
+#include <yoneda_string.h>
+#include <yoneda_time.h>
+#include "common.h"
 
-typedef struct Day3Result {
-    u64 result;
-    f64 elapsed_time;
-} Day3Result;
-
-static Day3Result day3_part1(yo_String input) {
+static Result day3_part1(yo_String input) {
     f64 start_time = yo_current_time_in_seconds();
 
     u64 result = 0;
@@ -95,13 +92,13 @@ static Day3Result day3_part1(yo_String input) {
 
     f64 end_time = yo_current_time_in_seconds();
 
-    return (Day3Result){
+    return (Result){
         .result       = result,
         .elapsed_time = end_time - start_time,
     };
 }
 
-static Day3Result day3_part2(yo_String input) {
+static Result day3_part2(yo_String input) {
     f64 start_time = yo_current_time_in_seconds();
 
     u64 result = 0;
@@ -211,7 +208,7 @@ static Day3Result day3_part2(yo_String input) {
 
     f64 end_time = yo_current_time_in_seconds();
 
-    return (Day3Result){
+    return (Result){
         .result       = result,
         .elapsed_time = end_time - start_time,
     };

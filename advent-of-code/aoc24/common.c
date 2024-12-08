@@ -1,15 +1,6 @@
-#include <yoneda_core.h>
+#include "common.h"
 
-#define make_input_path(day, part) ("aoc24/input/day" day "_part" part ".txt")
-
-#define swap_u32_values(lhs, rhs) \
-    do {                          \
-        u32 temp_ = (lhs);        \
-        (lhs)     = (rhs);        \
-        (rhs)     = temp_;        \
-    } while (0)
-
-yo_internal void quick_sort_u32_range(u32* start, u32* end) {
+static void quick_sort_u32_range(u32* start, u32* end) {
     if (start >= end) {
         return;
     }
@@ -67,6 +58,6 @@ yo_internal isize impl_binary_search_u32_values(u32 const* values, u32 match_val
     return impl_binary_search_u32_values(values, match_value, new_low, new_high);
 }
 
-yo_internal isize binary_search_u32_values(u32 const* values, usize count, u32 match_value) {
+isize binary_search_u32_values(u32 const* values, usize count, u32 match_value) {
     return impl_binary_search_u32_values(values, match_value, 0, yo_cast(isize, count) - 1);
 }

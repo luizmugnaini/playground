@@ -197,7 +197,7 @@ local compiler_flags = {
         opt_lib_path         = "/LIBPATH:",
         opt_std              = "/std:",
         opt_out_exe          = "-o",
-        flags_debug          = "/INCREMENTAL:NO /EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
+        flags_debug          = "/INCREMENTAL:NO /EHa- -Wno-unsafe-buffer-usage -Wno-declaration-after-statement -Wno-null-pointer-subtraction -Wall -Wextra -Wconversion -Wuninitialized -Wnull-pointer-arithmetic -Wnull-dereference -Wformat=2 -Wno-pre-c11-compat -Ob0 /Od /Oy- /Z7 /RTC1 -g /MTd",
         flags_release        = "/INCREMENTAL:NO /EHa- -O2 /MT",
     },
 }

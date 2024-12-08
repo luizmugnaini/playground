@@ -3,6 +3,7 @@
 #include "day1.c"
 #include "day2.c"
 #include "day3.c"
+#include "day4.c"
 // clang-format on
 
 #include <yoneda_log.h>
@@ -25,8 +26,8 @@ int main(void) {
     {
         yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(&arena);
 
-        Day1Result part1 = day1_part1(get_input(&arena, make_input_path("1", "1")));
-        Day1Result part2 = day1_part2(get_input(&arena, make_input_path("1", "2")));
+        Result part1 = day1_part1(get_input(&arena, make_input_path("1", "1")));
+        Result part2 = day1_part2(get_input(&arena, make_input_path("1", "2")));
 
         yo_log_info_fmt("DAY 1, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
         yo_log_info_fmt("DAY 1, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
@@ -38,8 +39,8 @@ int main(void) {
     {
         yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(&arena);
 
-        Day2Result part1 = day2_part1(get_input(&arena, make_input_path("2", "1")));
-        Day2Result part2 = day2_part2(get_input(&arena, make_input_path("2", "2")));
+        Result part1 = day2_part1(get_input(&arena, make_input_path("2", "1")));
+        Result part2 = day2_part2(get_input(&arena, make_input_path("2", "2")));
 
         yo_log_info_fmt("DAY 2, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
         yo_log_info_fmt("DAY 2, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
@@ -51,12 +52,27 @@ int main(void) {
     {
         yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(&arena);
 
-        Day3Result part1 = day3_part1(get_input(&arena, make_input_path("3", "1")));
-        Day3Result part2 = day3_part2(  // yo_comptime_make_string("xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"));
-            get_input(&arena, make_input_path("3", "2")));
+        Result part1 = day3_part1(get_input(&arena, make_input_path("3", "1")));
+        Result part2 = day3_part2(get_input(&arena, make_input_path("3", "2")));
 
         yo_log_info_fmt("DAY 3, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
         yo_log_info_fmt("DAY 3, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
+
+        yo_arena_checkpoint_restore(arena_checkpoint);
+    }
+
+    // Day 4.
+    {
+        yo_ArenaCheckpoint arena_checkpoint = yo_make_arena_checkpoint(&arena);
+
+        Result part1 = day4_part1(get_input(
+            &arena,
+            "aoc24/input/day4_part1_sample.txt"));
+        // make_input_path("4", "1")));
+        // Result part2 = day4_part2(get_input(&arena, make_input_path("4", "2")));
+
+        yo_log_info_fmt("DAY 4, PART 1 (%.9f seconds): %zu.", part1.elapsed_time, part1.result);
+        // yo_log_info_fmt("DAY 4, PART 2 (%.9f seconds): %zu.", part2.elapsed_time, part2.result);
 
         yo_arena_checkpoint_restore(arena_checkpoint);
     }

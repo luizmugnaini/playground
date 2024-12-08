@@ -1,18 +1,17 @@
-#include <yoneda_core.h>
+#include <yoneda_bit.h>
+#include <yoneda_memory.h>
+#include <yoneda_string.h>
+#include <yoneda_time.h>
+#include "common.h"
 
 #include <stdio.h>
 
-typedef struct Day2Result {
-    u64 result;
-    f64 elapsed_time;
-} Day2Result;
-
-typedef struct day2_Report {
+typedef struct Day2Report {
     u32 count;
     u32 values[8];
-} day2_Report;
+} Day2Report;
 
-static u64 day2_parse_input(yo_String input, day2_Report* reports, usize max_report_count, u32 max_values_per_report) {
+static u64 day2_parse_input(yo_String input, Day2Report* reports, usize max_report_count, u32 max_values_per_report) {
     u64 report_count = 0;
 
     char const* input_end    = yo_cast(char const*, yo_ptr_add(input.buf, input.length));
@@ -21,7 +20,7 @@ static u64 day2_parse_input(yo_String input, day2_Report* reports, usize max_rep
         char number_buf[4];
         u32  number_buf_length = 0;
 
-        day2_Report report = yo_make_default(day2_Report);
+        Day2Report report = yo_make_default(Day2Report);
 
         // Parse the report values.
         while (report.count < max_values_per_report) {
@@ -41,7 +40,7 @@ static u64 day2_parse_input(yo_String input, day2_Report* reports, usize max_rep
         }
 
         // Record the report to the array.
-        yo_memory_move(yo_cast(u8*, &reports[report_count]), yo_cast(u8 const*, &report), yo_size_of(day2_Report));
+        yo_memory_move(yo_cast(u8*, &reports[report_count]), yo_cast(u8 const*, &report), yo_size_of(Day2Report));
         ++report_count;
 
         // Skip to the next line and/or check if we reached the end of the file.
@@ -61,16 +60,16 @@ static u64 day2_parse_input(yo_String input, day2_Report* reports, usize max_rep
     return report_count;
 }
 
-static Day2Result day2_part1(yo_String input) {
+static Result day2_part1(yo_String input) {
     f64 start_time = yo_current_time_in_seconds();
 
-    day2_Report reports[1000];
-    u64         report_count = day2_parse_input(input, reports, yo_count_of(reports), yo_count_of(reports[0].values));
+    Day2Report reports[1000];
+    u64        report_count = day2_parse_input(input, reports, yo_count_of(reports), yo_count_of(reports[0].values));
 
     u64 safe_report_count = 0;
     for (usize report_idx = 0; report_idx < report_count; ++report_idx) {
-        day2_Report* report = &reports[report_idx];
-        u32          count  = report->count;
+        Day2Report* report = &reports[report_idx];
+        u32         count  = report->count;
 
         // @NOTE: We know that report->count will always be > 1.
         i32  last_diff = yo_cast(i32, report->values[1]) - yo_cast(i32, report->values[0]);
@@ -90,7 +89,7 @@ static Day2Result day2_part1(yo_String input) {
 
     f64 end_time = yo_current_time_in_seconds();
 
-    return (Day2Result){
+    return (Result){
         .result       = safe_report_count,
         .elapsed_time = end_time - start_time,
     };
@@ -106,16 +105,16 @@ static yo_inline bool day2_part2_is_diff_safe(i32 last_diff, i32 current_diff) {
            !yo_i32_opposite_sign(current_diff, last_diff);
 }
 
-static Day2Result day2_part2(yo_String input) {
+static Result day2_part2(yo_String input) {
     f64 start_time = yo_current_time_in_seconds();
 
-    day2_Report reports[1000];
-    usize       report_count = day2_parse_input(input, reports, yo_count_of(reports), yo_count_of(reports[0].values));
+    Day2Report reports[1000];
+    usize      report_count = day2_parse_input(input, reports, yo_count_of(reports), yo_count_of(reports[0].values));
 
     u64 safe_report_count = 0;
     for (usize report_idx = 0; report_idx < report_count; ++report_idx) {
         // yo_log_debug_fmt("report %zu", report_idx);
-        day2_Report* report = &reports[report_idx];
+        Day2Report* report = &reports[report_idx];
 
         // @NOTE: We know that report->count will always be > 3.
         u32 count = report->count;
@@ -207,7 +206,7 @@ static Day2Result day2_part2(yo_String input) {
 
     f64 end_time = yo_current_time_in_seconds();
 
-    return (Day2Result){
+    return (Result){
         .result       = safe_report_count,
         .elapsed_time = end_time - start_time,
     };
