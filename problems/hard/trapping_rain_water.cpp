@@ -11,8 +11,8 @@
 // Return the maximum area of water that can be trapped between the bars.
 // ------------------------------------------------------------------------------------------------
 
-#include <vector>
 #include <common.hpp>
+#include <vector>
 
 uint32_t trap_rain_water(std::vector<uint32_t> const& bar_heights) {
     size_t bar_count = bar_heights.size();

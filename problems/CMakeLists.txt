@@ -50,6 +50,7 @@ list(
 list(
     APPEND HARD_PROBLEMS
     "trapping_rain_water"
+    "minimum_window_substring"
 )
 
 # ------------------------------------------------------------------------------
