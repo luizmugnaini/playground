@@ -51,6 +51,7 @@ list(
     APPEND HARD_PROBLEMS
     "trapping_rain_water"
     "minimum_window_substring"
+    "sliding_window_maximum"
 )
 
 # ------------------------------------------------------------------------------

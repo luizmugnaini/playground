@@ -13,8 +13,8 @@
 
 #define assert_eq(lhs, rhs)                                                                            \
     do {                                                                                               \
-        auto lhs_value_ = (lhs);                                                                       \
-        auto rhs_value_ = static_cast<decltype(lhs_value_)>(rhs);                                      \
+        auto                 lhs_value_ = (lhs);                                                       \
+        decltype(lhs_value_) rhs_value_ = (rhs);                                                       \
         if (lhs_value_ != rhs_value_) {                                                                \
             std::cout << "[ERROR][" << __builtin_FILE() << ":" << __builtin_LINE() << "] "             \
                       << lhs_value_ << " != " << rhs_value_                                            \
@@ -53,5 +53,21 @@ namespace debug {
             }
         }
         return matches;
+    }
+
+    template <typename T>
+    void vec_assert_eq(std::vector<T> const& lhs, std::vector<T> const& rhs) {
+        size_t count = lhs.size();
+        assert(rhs.size() == count);
+
+        for (size_t idx = 0; idx < count; ++idx) {
+            T lhs_value = lhs[idx];
+            T rhs_value = rhs[idx];
+            if (lhs_value != rhs_value) {
+                std::cout << "[ERROR] Vectors don't match at " << idx
+                          << " (lhs = " << lhs_value << ", rhs = " << rhs_value << ")\n";
+                std::abort();
+            }
+        }
     }
 }  // namespace debug
