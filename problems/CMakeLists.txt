@@ -46,6 +46,7 @@ list(
     "string_to_integer"
     "generate_parentheses"
     "permutation_in_string"
+    "koko_eating_bananas"
 )
 
 list(
