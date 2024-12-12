@@ -25,6 +25,7 @@ list(
     "valid_palindrome"
     "valid_parentheses"
     "best_time_to_buy_and_sell_stock"
+    "binary_search"
 )
 
 list(
