@@ -12,60 +12,70 @@
 // Return a list that contains the maximum element in the window at each step.
 // ------------------------------------------------------------------------------------------------
 
-#include <algorithm>
 #include <common.hpp>
 #include <vector>
 
-static inline int32_t find_window_max_value(auto window_start, auto window_end) {
-    int32_t maxv = *window_start;
-    for (auto it = window_start + 1; it < window_end; ++it) {
-        maxv = std::max(maxv, *it);
-    }
-    return maxv;
-}
-
-static std::vector<int32_t> max_sliding_window(std::vector<int32_t> const& values, size_t window_length) {
+// @NOTE: I hate using the modulo operator here as it is too slow for my taste. But whatever, this is only a
+//        worthless exercise.
+static std::vector<int32_t> max_in_sliding_windows(std::vector<int32_t> const& values, size_t window_length) {
     size_t values_count = values.size();
-    assert(window_length <= values_count);
+    size_t window_count = values_count - window_length + 1;
 
-    std::vector<int32_t> windows_max_values;
-    windows_max_values.reserve(values_count - window_length + 1);
+    std::vector<int32_t> window_max_to_the_left;
+    {
+        window_max_to_the_left.resize(values_count, 0);
 
-    auto window_start = values.begin();
-    auto window_end   = values.begin() + window_length;
+        int32_t current_max_left  = values[0];
+        window_max_to_the_left[0] = values[0];
 
-    // Scan the first window.
-    int32_t window_max = find_window_max_value(window_start, window_end);
-    windows_max_values.push_back(window_max);
+        for (size_t left_idx = 1; left_idx < values_count; ++left_idx) {
+            current_max_left = (left_idx % window_length == 0)
+                                   ? values[left_idx]
+                                   : max_value(current_max_left, values[left_idx]);
 
-    // Scan the remaining windows.
-    auto values_end = window_start + values_count;
-    while (window_end < values_end) {
-        ++window_start;
-        ++window_end;
-
-        int32_t previous_start_value = *(window_start - 1);
-        int32_t new_end_value        = *(window_end - 1);
-
-        if (previous_start_value < window_max) {
-            window_max = std::max(window_max, new_end_value);
-        } else {
-            window_max = find_window_max_value(window_start, window_end);
+            window_max_to_the_left[left_idx] = current_max_left;
         }
-
-        windows_max_values.push_back(window_max);
     }
 
-    return windows_max_values;
+    std::vector<int32_t> window_max_to_the_right;
+    {
+        window_max_to_the_right.resize(values_count, 0);
+
+        int32_t current_max_right                 = values[values_count - 1];
+        window_max_to_the_right[values_count - 1] = current_max_right;
+
+        for (ptrdiff_t right_idx = values_count - 2; right_idx >= 0; --right_idx) {
+            current_max_right = (right_idx % window_length == 0)
+                                    ? values[right_idx]
+                                    : max_value(current_max_right, values[right_idx]);
+
+            window_max_to_the_right[right_idx] = current_max_right;
+        }
+    }
+
+    std::vector<int32_t> window_max_values;
+    {
+        window_max_values.reserve(window_count);
+
+        ptrdiff_t last_window_start = values_count - window_length;
+        for (ptrdiff_t window_start = 0; window_start <= last_window_start; ++window_start) {
+            window_max_values.push_back(max_value(
+                window_max_to_the_right[window_start],
+                window_max_to_the_left[window_start + window_length - 1]));
+        }
+    }
+
+    return window_max_values;
 }
 
 int main() {
-    debug::vec_assert_eq(max_sliding_window({9}, 1), {9});
-    debug::vec_assert_eq(max_sliding_window({9, 2}, 1), {9, 2});
-    debug::vec_assert_eq(max_sliding_window({9, 2}, 2), {9});
-    debug::vec_assert_eq(max_sliding_window({1, 2, 3}, 1), {1, 2, 3});
-    debug::vec_assert_eq(max_sliding_window({1, 2, 3}, 2), {2, 3});
-    debug::vec_assert_eq(max_sliding_window({1, 2, 3}, 3), {3});
+    debug::vec_assert_eq(max_in_sliding_windows({9}, 1), {9});
+    debug::vec_assert_eq(max_in_sliding_windows({9, 2}, 1), {9, 2});
+    debug::vec_assert_eq(max_in_sliding_windows({9, 2}, 2), {9});
+    debug::vec_assert_eq(max_in_sliding_windows({1, 2, 3}, 1), {1, 2, 3});
+    debug::vec_assert_eq(max_in_sliding_windows({1, 2, 3}, 2), {2, 3});
+    debug::vec_assert_eq(max_in_sliding_windows({1, 2, 3}, 3), {3});
+    debug::vec_assert_eq(max_in_sliding_windows({1, 3, -1, -3, 5, 3, 6, 7}, 3), {3, 3, 5, 5, 6, 7});
 
     report_success();
     return 0;
