@@ -47,6 +47,7 @@ list(
     "generate_parentheses"
     "permutation_in_string"
     "koko_eating_bananas"
+    "lru_cache"
 )
 
 list(
