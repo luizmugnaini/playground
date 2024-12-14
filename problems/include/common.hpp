@@ -1,6 +1,8 @@
 // Description: Utilities common to all solutions.
 // Author: Luiz G. Mugnaini A. <luizmugnaini@gmail.com>
 
+#pragma once
+
 #include <cassert>
 #include <cstddef>
 #include <cstdint>

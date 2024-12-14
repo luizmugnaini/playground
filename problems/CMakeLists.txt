@@ -48,6 +48,7 @@ list(
     "permutation_in_string"
     "koko_eating_bananas"
     "lru_cache"
+    "binary_tree_implementation_test"
 )
 
 list(
