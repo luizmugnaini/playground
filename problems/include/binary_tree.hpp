@@ -60,6 +60,9 @@ struct BinaryTree {
     // Methods.
     // -----------------------------------------------------------------------------
 
+    BinaryTree()  = delete;
+    ~BinaryTree() = default;
+
     BinaryTree(T root_value, size_t initial_capacity) {
         this->memory.reserve(max_value(initial_capacity, MIN_NEW_NODE_BLOCK));
 
@@ -82,6 +85,69 @@ struct BinaryTree {
 
         return this->memory[parent].value;
     }
+
+    T max() const {
+        ptrdiff_t current_node_idx = ROOT_NODE;
+        ptrdiff_t next_child_idx   = this->memory[current_node_idx].right_node_idx;
+        while (next_child_idx >= 0) {
+            current_node_idx = next_child_idx;
+            next_child_idx   = this->memory[next_child_idx].right_node_idx;
+        }
+
+        return this->memory[current_node_idx].value;
+    }
+
+    ptrdiff_t find_node(T value) {
+        ptrdiff_t current_node_idx = ROOT_NODE;
+        while (current_node_idx >= 0) {
+            Node current_node = this->memory[current_node_idx];
+            if (current_node.value == value) {
+                break;
+            } else if (current_node.value > value) {
+                current_node_idx = current_node.left_node_idx;
+            } else {
+                current_node_idx = current_node.right_node_idx;
+            }
+        }
+
+        return (current_node_idx >= 0) ? current_node_idx : INVALID_NODE_INDEX;
+    }
+
+    ptrdiff_t insert_node(T value) {
+        NodeSearchResult traversal_result;
+        this->impl_traverse_to_node_index(traversal_result, value, ROOT_NODE);
+
+        if (traversal_result.node_idx == NODE_ALREADY_EXISTS) {
+            // Do nothing.
+        } else if (traversal_result.parent_of_node_idx == INVALID_NODE_INDEX) {
+            // The only node whose parent doesn't exist is the root.
+            if (this->memory[ROOT_NODE].value != value) {
+                this->memory[ROOT_NODE].value = value;
+            } else {
+                traversal_result.node_idx = NODE_ALREADY_EXISTS;
+            }
+        } else {
+            if (traversal_result.node_idx >= static_cast<ptrdiff_t>(this->memory.size())) {
+                this->memory.resize(static_cast<size_t>(traversal_result.node_idx) + MIN_NEW_NODE_BLOCK);
+            }
+
+            Node& new_node    = this->memory[traversal_result.node_idx];
+            Node& parent_node = this->memory[traversal_result.parent_of_node_idx];
+
+            switch (traversal_result.side_wrt_parent) {
+                case ChildSide::LEFT:  parent_node.left_node_idx = traversal_result.node_idx; break;
+                case ChildSide::RIGHT: parent_node.right_node_idx = traversal_result.node_idx; break;
+            }
+
+            new_node.value = value;
+        }
+
+        return traversal_result.node_idx;
+    }
+
+    // -----------------------------------------------------------------------------
+    // Implementation details.
+    // -----------------------------------------------------------------------------
 
     void impl_traverse_to_node_index(NodeSearchResult& result, T value, ptrdiff_t current_node_idx) {
         assert(current_node_idx != LEAF_NODE);
@@ -122,37 +188,5 @@ struct BinaryTree {
             // Continue the search.
             this->impl_traverse_to_node_index(result, value, next_child_idx);
         }
-    }
-
-    ptrdiff_t insert(T value) {
-        NodeSearchResult traversal_result;
-        this->impl_traverse_to_node_index(traversal_result, value, ROOT_NODE);
-
-        if (traversal_result.node_idx == NODE_ALREADY_EXISTS) {
-            // Do nothing.
-        } else if (traversal_result.parent_of_node_idx == INVALID_NODE_INDEX) {
-            // The only node whose parent doesn't exist is the root.
-            if (this->memory[ROOT_NODE].value != value) {
-                this->memory[ROOT_NODE].value = value;
-            } else {
-                traversal_result.node_idx = NODE_ALREADY_EXISTS;
-            }
-        } else {
-            if (traversal_result.node_idx >= static_cast<ptrdiff_t>(this->memory.size())) {
-                this->memory.resize(static_cast<size_t>(traversal_result.node_idx) + MIN_NEW_NODE_BLOCK);
-            }
-
-            Node& new_node    = this->memory[traversal_result.node_idx];
-            Node& parent_node = this->memory[traversal_result.parent_of_node_idx];
-
-            switch (traversal_result.side_wrt_parent) {
-                case ChildSide::LEFT:  parent_node.left_node_idx = traversal_result.node_idx; break;
-                case ChildSide::RIGHT: parent_node.right_node_idx = traversal_result.node_idx; break;
-            }
-
-            new_node.value = value;
-        }
-
-        return traversal_result.node_idx;
     }
 };
