@@ -76,19 +76,19 @@ struct BinaryTree {
     }
 
     T min() const {
-        ptrdiff_t parent     = ROOT_NODE;
-        ptrdiff_t next_child = this->memory[ROOT_NODE].left_node_idx;
-        while (next_child >= 0) {
-            parent     = next_child;
-            next_child = this->memory[next_child].left_node_idx;
+        ptrdiff_t current_node_idx = ROOT_NODE;
+        ptrdiff_t next_child_idx   = this->memory[ROOT_NODE].left_node_idx;
+        while (next_child_idx >= 0) {
+            current_node_idx = next_child_idx;
+            next_child_idx   = this->memory[next_child_idx].left_node_idx;
         }
 
-        return this->memory[parent].value;
+        return this->memory[current_node_idx].value;
     }
 
     T max() const {
         ptrdiff_t current_node_idx = ROOT_NODE;
-        ptrdiff_t next_child_idx   = this->memory[current_node_idx].right_node_idx;
+        ptrdiff_t next_child_idx   = this->memory[ROOT_NODE].right_node_idx;
         while (next_child_idx >= 0) {
             current_node_idx = next_child_idx;
             next_child_idx   = this->memory[next_child_idx].right_node_idx;
