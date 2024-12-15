@@ -13,6 +13,8 @@ int main() {
 
         assert_eq(bt.min(), 5);
         assert_eq(bt.max(), 5);
+
+        assert_eq(bt.max_depth(), 1);
     }
 
     assert_eq(bt.insert_node(2), 1);
@@ -26,6 +28,8 @@ int main() {
 
         assert_eq(bt.min(), 2);
         assert_eq(bt.max(), 5);
+
+        assert_eq(bt.max_depth(), 2);
     }
 
     assert_eq(bt.insert_node(6), 2);
@@ -39,6 +43,8 @@ int main() {
 
         assert_eq(bt.min(), 2);
         assert_eq(bt.max(), 6);
+
+        assert_eq(bt.max_depth(), 2);
     }
 
     assert_eq(bt.insert_node(1), 3);
@@ -53,6 +59,8 @@ int main() {
 
         assert_eq(bt.min(), 1);
         assert_eq(bt.max(), 6);
+
+        assert_eq(bt.max_depth(), 3);
     }
 
     assert_eq(bt.insert_node(-3), 7);
@@ -68,6 +76,8 @@ int main() {
 
         assert_eq(bt.min(), -3);
         assert_eq(bt.max(), 6);
+
+        assert_eq(bt.max_depth(), 4);
     }
 
     assert_eq(bt.insert_node(-3), BinaryTree<int32_t>::NODE_ALREADY_EXISTS);
@@ -83,6 +93,8 @@ int main() {
 
         assert_eq(bt.min(), -3);
         assert_eq(bt.max(), 6);
+
+        assert_eq(bt.max_depth(), 4);
     }
 
     assert_eq(bt.insert_node(3), 4);
@@ -96,6 +108,8 @@ int main() {
 
         assert_eq(bt.min(), -3);
         assert_eq(bt.max(), 6);
+
+        assert_eq(bt.max_depth(), 4);
     }
 
     assert_eq(bt.insert_node(5), BinaryTree<int32_t>::NODE_ALREADY_EXISTS);
@@ -109,6 +123,8 @@ int main() {
 
         assert_eq(bt.min(), -3);
         assert_eq(bt.max(), 6);
+
+        assert_eq(bt.max_depth(), 4);
     }
 
     assert_eq(bt.insert_node(9), 6);
@@ -123,6 +139,8 @@ int main() {
 
         assert_eq(bt.min(), -3);
         assert_eq(bt.max(), 9);
+
+        assert_eq(bt.max_depth(), 4);
     }
 
     assert_eq(bt.insert_node(3), BinaryTree<int32_t>::NODE_ALREADY_EXISTS);
@@ -137,6 +155,8 @@ int main() {
 
         assert_eq(bt.min(), -3);
         assert_eq(bt.max(), 9);
+
+        assert_eq(bt.max_depth(), 4);
     }
 
     report_success();

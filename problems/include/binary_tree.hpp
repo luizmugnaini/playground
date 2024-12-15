@@ -97,7 +97,21 @@ struct BinaryTree {
         return this->memory[current_node_idx].value;
     }
 
-    ptrdiff_t find_node(T value) {
+    // @NOTE: Bad and inefficient.
+    size_t impl_max_depth(ptrdiff_t current_node_idx) const {
+        if (current_node_idx < 0) {
+            return 0;
+        }
+
+        Node const& current_node = this->memory[current_node_idx];
+        return 1u + max_value(impl_max_depth(current_node.left_node_idx), impl_max_depth(current_node.right_node_idx));
+    }
+
+    size_t max_depth() const {
+        return impl_max_depth(ROOT_NODE);
+    }
+
+    ptrdiff_t find_node(T value) const {
         ptrdiff_t current_node_idx = ROOT_NODE;
         while (current_node_idx >= 0) {
             Node current_node = this->memory[current_node_idx];
