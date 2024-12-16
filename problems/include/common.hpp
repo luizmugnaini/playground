@@ -13,6 +13,8 @@
 #define max_value(lhs, rhs) (((lhs) >= (rhs)) ? (lhs) : (rhs))
 #define min_value(lhs, rhs) (((lhs) <= (rhs)) ? (lhs) : (rhs))
 
+#define count_of(array) (sizeof(array) / sizeof(*array))
+
 #define assert_eq(lhs, rhs)                                                                            \
     do {                                                                                               \
         auto                 lhs_value_ = (lhs);                                                       \

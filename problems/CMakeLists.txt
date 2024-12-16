@@ -49,6 +49,7 @@ list(
     "koko_eating_bananas"
     "lru_cache"
     "binary_tree_implementation_test"
+    "task_scheduler"
 )
 
 list(
