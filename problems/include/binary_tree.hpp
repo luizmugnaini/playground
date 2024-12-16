@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
@@ -101,16 +102,6 @@ struct BinaryTree {
         return this->memory[current_node_idx].value;
     }
 
-    // @NOTE: Bad and inefficient.
-    size_t impl_max_depth(ptrdiff_t current_node_idx) const {
-        if (current_node_idx < 0) {
-            return 0;
-        }
-
-        Node const& current_node = this->memory[current_node_idx];
-        return 1u + max_value(impl_max_depth(current_node.left_node_idx), impl_max_depth(current_node.right_node_idx));
-    }
-
     size_t max_depth() const {
         return impl_max_depth(ROOT_NODE);
     }
@@ -166,6 +157,16 @@ struct BinaryTree {
     // -----------------------------------------------------------------------------
     // Implementation details.
     // -----------------------------------------------------------------------------
+
+    // @NOTE: Bad and inefficient.
+    size_t impl_max_depth(ptrdiff_t current_node_idx) const {
+        if (current_node_idx < 0) {
+            return 0;
+        }
+
+        Node const& current_node = this->memory[current_node_idx];
+        return 1u + std::max(impl_max_depth(current_node.left_node_idx), impl_max_depth(current_node.right_node_idx));
+    }
 
     void impl_traverse_to_node_index(NodeSearchResult& result, T value, ptrdiff_t current_node_idx) {
         assert(current_node_idx != LEAF_NODE);

@@ -50,6 +50,7 @@ list(
     "lru_cache"
     "binary_tree_implementation_test"
     "task_scheduler"
+    "car_fleet"
 )
 
 list(
